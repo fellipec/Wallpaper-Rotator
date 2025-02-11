@@ -46,7 +46,10 @@ def main():
     temp_wallpaper = download_wallpaper(WALLPAPER_URL)
 
     if temp_wallpaper and validate_image(temp_wallpaper):
-        os.rename(temp_wallpaper, SAVE_PATH)  # Move to final location
+        # Move to final location
+        with open(temp_wallpaper, "rb") as src, open(SAVE_PATH, "wb") as dst:
+            dst.write(src.read())
+        os.remove(temp_wallpaper)  # Clean up the temp file
         print("Wallpaper updated successfully!")
         set_wallpaper(SAVE_PATH)
     else:
