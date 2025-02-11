@@ -37,7 +37,7 @@ fi
 
 # Run the wallpaper client
 echo "Running wallpaper client..."
-python "$INSTALL_DIR/wallpaper_client.py"
+python "$INSTALL_DIR/getwallpaper.py"
 
 # Deactivate virtual environment
 deactivate
