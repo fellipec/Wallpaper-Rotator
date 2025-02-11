@@ -46,7 +46,7 @@ mkdir -p "$CONFIG_DIR"
 # Copy config if it doesn't exist
 if [[ ! -f "$CONFIG_FILE" ]]; then
     echo "Copying default config..."
-    cp "$DEFAULT_CONFIG" "$CONFIG_FILE"
+    cp "$INSTALL_DIR/$DEFAULT_CONFIG" "$CONFIG_FILE"
 else
     echo "Config already exists. Skipping copy."
 fi
