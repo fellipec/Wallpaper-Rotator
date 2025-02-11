@@ -3,8 +3,8 @@ import random
 from PIL import Image
 
 # Configuration
-source_folder = "/path/to/source/folder"  # Change this to your source folder
-destination_folder = "/path/to/destination/folder"  # Change this to your destination folder
+source_folder = os.path.expandvars("$HOME/wallpaper") # Change this to your source folder
+destination_folder = "/tmp"  # Change this to your destination folder
 output_filename = "wallpaper.jpg"
 screen_width = 2560
 screen_height = 1080
