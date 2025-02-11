@@ -5,6 +5,9 @@ REPO_URL="https://github.com/fellipec/wallpaper-rotator.git"
 INSTALL_DIR="$HOME/.local/wallpaper-rotator"
 VENV_DIR="$INSTALL_DIR/venv"
 PYTHON_BIN="python3"
+CONFIG_DIR="$HOME/.config/wallpaper-rotator"
+CONFIG_FILE="$CONFIG_DIR/config.ini"
+DEFAULT_CONFIG="config.ini.example"  # The example config provided with the repo
 
 # Ensure git is installed
 if ! command -v git &>/dev/null; then
@@ -35,6 +38,19 @@ else
     echo "No requirements.txt found, skipping dependency installation."
 fi
 
+echo "Setting up wallpaper-rotator..."
+
+# Ensure the config directory exists
+mkdir -p "$CONFIG_DIR"
+
+# Copy config if it doesn't exist
+if [[ ! -f "$CONFIG_FILE" ]]; then
+    echo "Copying default config..."
+    cp "$DEFAULT_CONFIG" "$CONFIG_FILE"
+else
+    echo "Config already exists. Skipping copy."
+fi
+
 # Run the wallpaper client
 echo "Running wallpaper client..."
 python "$INSTALL_DIR/getwallpaper.py"
@@ -52,3 +68,5 @@ if [ -z "$CRON_JOB" ]; then
 else
     echo "Cron job already exists."
 fi
+
+echo "Installation complete!"

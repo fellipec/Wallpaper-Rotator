@@ -3,10 +3,18 @@ import requests
 import tempfile
 from PIL import Image
 import subprocess
+import configparser
 
-# Configuration
-WALLPAPER_URL = "https://clementine.fellipec.com/wallpaper.jpg"  # Change to your URL
-SAVE_PATH = os.path.expandvars("$HOME/.local/wallpaper.jpg")
+# Config file location
+CONFIG_PATH = os.path.expanduser("~/.config/wallpaper-rotator/config.ini")
+
+# Load config
+config = configparser.ConfigParser()
+config.read(CONFIG_PATH)
+
+WALLPAPER_URL = config["general"]["wallpaper_url"]
+SAVE_PATH = os.path.expanduser(config["general"]["save_path"])
+TEMP_PATH = "/tmp/temp_wallpaper.jpg"
 
 def download_wallpaper(url):
     """Downloads the wallpaper to a temporary file."""

@@ -1,13 +1,20 @@
 import os
 import random
+import configparser
 from PIL import Image
 
-# Configuration
-source_folder = os.path.expandvars("$HOME/wallpaper") # Change this to your source folder
-destination_folder = "/tmp"  # Change this to your destination folder
-output_filename = "wallpaper.jpg"
-screen_width = 2560
-screen_height = 1080
+# Config file location
+CONFIG_PATH = "/etc/wallpaper-rotator/config.ini"
+
+# Load config
+config = configparser.ConfigParser()
+config.read(CONFIG_PATH)
+
+source_folder = os.path.expanduser(config["general"]["source_folder"])
+destination_folder = os.path.expanduser(config["general"]["destination_folder"])
+output_filename = config["general"]["output_filename"]
+screen_width = int(config["general"]["screen_width"])
+screen_height = int(config["general"]["screen_height"])
 
 def resize_image(image_path, output_path):
     img = Image.open(image_path)
