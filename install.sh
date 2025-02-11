@@ -42,4 +42,13 @@ python "$INSTALL_DIR/getwallpaper.py"
 # Deactivate virtual environment
 deactivate
 
-echo
+# Add cron job for automatic updates
+CRON_CMD="2 */4 * * * $HOME/.local/wallpaper-rotator/venv/bin/python3 $HOME/.local/wallpaper-rotator/getwallpaper.py"
+CRON_JOB="$(crontab -l 2>/dev/null | grep -F "$CRON_CMD")"
+
+if [ -z "$CRON_JOB" ]; then
+    echo "Setting up cron job to update wallpaper every hour..."
+    (crontab -l 2>/dev/null; echo "$CRON_CMD") | crontab -
+else
+    echo "Cron job already exists."
+fi
